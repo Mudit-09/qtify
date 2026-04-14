@@ -1,0 +1,17 @@
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 80px;
+  background-color: black;
+  color: white;
+}
+
+.heroText {
+  font-size: 32px;
+  font-weight: 500; /* reduce from 600 */
+}
+
+.heroImage {
+  width: 250px;
+}
