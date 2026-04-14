@@ -1,20 +1,21 @@
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero";
-import Card from "../components/Card/Card";
+import Section from "../components/Section/Section";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 function Home() {
   const [albums, setAlbums] = useState([]);
+  const [newAlbums, setNewAlbums] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://qtify-backend.labs.crio.do/albums/top")
-      .then((res) => {
-        console.log(res.data); // DEBUG
-        setAlbums(res.data);
-      })
-      .catch((err) => console.log(err));
+      .then((res) => setAlbums(res.data));
+
+    axios
+      .get("https://qtify-backend.labs.crio.do/albums/new")
+      .then((res) => setNewAlbums(res.data));
   }, []);
 
   return (
@@ -22,17 +23,11 @@ function Home() {
       <Navbar />
       <Hero />
 
-      <div className="cardSection">
-        {albums.length === 0 ? (
-          <p style={{ color: "white" }}>Loading...</p>
-        ) : (
-          albums.map((album) => (
-            <Card key={album.id} album={album} />
-          ))
-        )}
-      </div>
+      <Section title="Top Albums" data={albums} />
+      <Section title="New Albums" data={newAlbums} />
     </>
   );
 }
 
 export default Home;
+
