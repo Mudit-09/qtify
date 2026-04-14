@@ -7,3 +7,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.cardSection {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;   /* 🔥 IMPORTANT */
+  margin-top: 40px;
+}
