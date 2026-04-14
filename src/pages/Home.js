@@ -3,6 +3,7 @@ import Hero from "../components/Hero/Hero";
 import Section from "../components/Section/Section";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Songs from "../components/Songs/Songs";
 
 function Home() {
   const [albums, setAlbums] = useState([]);
@@ -25,6 +26,7 @@ function Home() {
 
       <Section title="Top Albums" data={albums} />
       <Section title="New Albums" data={newAlbums} />
+      <Songs /> 
     </>
   );
 }
