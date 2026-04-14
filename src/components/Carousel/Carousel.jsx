@@ -1,31 +1,64 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { useRef } from "react";
 import "swiper/css";
-import "swiper/css/navigation";
 
 function Carousel({ children }) {
+  const swiperRef = useRef(null);
+
   return (
-    <Swiper
-      modules={[Navigation]}
-      navigation
-      spaceBetween={20}
-      slidesPerView={6}
-      slidesPerGroup={1}
-      loop={false}
-      watchSlidesProgress={true}   // 🔥 FIX
-      watchSlidesVisibility={true} // 🔥 FIX
-      breakpoints={{
-        320: { slidesPerView: 2, slidesPerGroup: 1 },
-        768: { slidesPerView: 4, slidesPerGroup: 1 },
-        1024: { slidesPerView: 6, slidesPerGroup: 1 },
-      }}
-    >
-      {children.map((child, index) => (
-        <SwiperSlide key={index}>
-          {child}
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div style={{ position: "relative" }}>
+      {/* LEFT BUTTON */}
+      <button
+        onClick={() => swiperRef.current?.slidePrev()}
+        style={{
+          position: "absolute",
+          left: 0,
+          top: "40%",
+          zIndex: 10,
+          background: "transparent",
+          border: "none",
+          fontSize: "30px",
+          cursor: "pointer",
+        }}
+      >
+        ◀
+      </button>
+
+      {/* SWIPER */}
+      <Swiper
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        spaceBetween={20}
+        slidesPerView={6}
+        slidesPerGroup={2} // 🔥 IMPORTANT
+        loop={false}
+        breakpoints={{
+          320: { slidesPerView: 2, slidesPerGroup: 2 },
+          768: { slidesPerView: 4, slidesPerGroup: 2 },
+          1024: { slidesPerView: 6, slidesPerGroup: 2 },
+        }}
+      >
+        {children.map((child, index) => (
+          <SwiperSlide key={index}>{child}</SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* RIGHT BUTTON */}
+      <button
+        onClick={() => swiperRef.current?.slideNext()}
+        style={{
+          position: "absolute",
+          right: 0,
+          top: "40%",
+          zIndex: 10,
+          background: "transparent",
+          border: "none",
+          fontSize: "30px",
+          cursor: "pointer",
+        }}
+      >
+        ▶
+      </button>
+    </div>
   );
 }
 
