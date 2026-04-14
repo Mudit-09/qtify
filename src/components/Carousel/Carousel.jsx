@@ -9,16 +9,21 @@ function Carousel({ children }) {
       modules={[Navigation]}
       navigation
       spaceBetween={20}
-      slidesPerView={6}   // 🔥 IMPORTANT (default)
-      slidesPerGroup={1}  // 🔥 CRITICAL FIX
+      slidesPerView={6}
+      slidesPerGroup={1}
+      loop={false}
+      watchSlidesProgress={true}   // 🔥 FIX
+      watchSlidesVisibility={true} // 🔥 FIX
       breakpoints={{
-        320: { slidesPerView: 2 },
-        768: { slidesPerView: 4 },
-        1024: { slidesPerView: 6 },
+        320: { slidesPerView: 2, slidesPerGroup: 1 },
+        768: { slidesPerView: 4, slidesPerGroup: 1 },
+        1024: { slidesPerView: 6, slidesPerGroup: 1 },
       }}
     >
       {children.map((child, index) => (
-        <SwiperSlide key={index}>{child}</SwiperSlide>
+        <SwiperSlide key={index}>
+          {child}
+        </SwiperSlide>
       ))}
     </Swiper>
   );
